@@ -1,0 +1,141 @@
+@model MVCJqueryFunction.Models.Producttbl
+
+@{
+    ViewData["Title"] = "AddProduct";
+}
+
+<div class="col-md-12">
+
+</div>
+
+<h2 class="alert alert-danger text-center">AddProduct</h2>
+
+@if (ViewBag.message != "null" && ViewBag.message != "")
+{
+    <h4 class="alert-success">@ViewBag.message</h4>
+}
+
+<div>
+    @{
+
+        IList<Categorytbl> SL1 = ViewBag.SL1;
+        SelectList OSL1 = new SelectList(SL1, "Id", "CategoryName");
+
+    
+
+                IList<Subcategorytbl> SL2 = ViewBag.SL2;
+
+                SelectList OSL2 = new SelectList(SL2, "Id", "SubcategoryName");
+
+       
+
+    }
+</div>
+
+<form asp-action="AddProduct" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="form-horizontal">
+       
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ParentCategory" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.DropDownList("ParentCategory", OSL1, "Select Category", new { @class = "form-control" })
+               
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubCategory" class="col-md-2 control-label"></label>
+            <div class="col-md-10 ">
+               
+                @*<a class="delbtn" data-osl="@SL1">*@
+                    @Html.DropDownList("Subcategory", OSL2, "Select SubCategory", new { @class = "form-control" })
+                @*</a>*@
+             </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductDescription" class="form-control" />
+                <span asp-validation-for="ProductDescription" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductPrice" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ProductPrice" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrductImage" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrductImage" type="file" id="pic" name="pic" />
+      
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="UserMangement">Back to Home</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @*<script>
+        $(function () {
+
+            $(".delbtn").click(function () {
+                var osl = $(this).data("osl");
+
+
+                alert(1);
+
+
+                $.ajax({
+                    data: { OSL: osl },
+                    url: '@Url.Action("AddProduct", "Home")',
+                    type: 'GET',
+                    // success: function (r) {
+                    //    if(r == "DONE")
+                    //    {
+                    //        alert("Student with id = " + studentid + " has been deleted successfully.");
+                    //        dada.fadeOut();
+                    //    }
+                }
+
+
+
+
+
+
+       //         });
+
+
+               ) });
+        });
+
+
+    </script>*@
+
+}
+
+

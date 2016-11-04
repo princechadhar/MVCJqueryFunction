@@ -1,0 +1,75 @@
+@model IEnumerable<MVCJqueryFunction.Models.Producttbl>
+
+@{
+    ViewData["Title"] = "AllProducts";
+}
+
+<h2 class="alert alert-danger text-center">Delete & Download Products</h2>
+<p>
+    <a asp-action="ProductSearch" class="alert-success">Porduct Search</a>
+</p>
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-success col-md-4">
+            <div class="panel panel-heading">
+                <img src="~/UploadedData/pps/@item.PrductImage" style="width:60% ;height:100px" class="img-circle " />
+            </div>
+            <div class="panel panel-body">
+                Name: @Html.DisplayFor(modelItem => item.ProductName)
+                <br />
+                Desccription:@Html.DisplayFor(modelItem => item.ProductDescription)
+            </div>
+            <div class="panel panel-footer">
+                <h3 class="panel-title">@Html.DisplayFor(modelItem => item.ProductPrice)</h3>
+                <a class="delbtn" href="#" data-productid="@item.Id">Delete</a><br />    
+                @*<a href="EditProduct?id=@item.Id">Edit</a>*@
+                <a href="@Url.Action("downloadfile",new { filepath=item.PrductImage})">download</a>
+            </div>
+        </div>
+
+
+    }
+
+</div>
+<div class="clearfix"></div>
+
+
+@section scripts{
+
+    <script>
+        $(function () {
+
+            $(".delbtn").click(function () {
+                var productid = $(this).data("productid");
+                var dada = $(this).parent().parent();
+
+                alert(productid);
+
+
+                $.ajax({
+                    data: { ProductID: productid },
+                    url: '@Url.Action("DeleteProduct","Home")',
+                    type: 'GET',
+                    success: function (r) {
+                        if(r == "DONE")
+                        {
+                            alert("Product with id = " + productid + " has been deleted successfully.");
+                            dada.fadeOut();
+                        }
+                    }
+
+
+
+
+
+
+                });
+
+
+            });
+        });
+
+    </script>
+
+}
