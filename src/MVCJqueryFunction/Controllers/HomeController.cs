@@ -183,7 +183,7 @@ namespace MVCJqueryFunction.Controllers
             data += "</td>";
 
             data += "<td>";
-            data += "<img src=/UploadedData/pps/" + P.PrductImage + "  style='width: 40%; height:100px' class='img-circle'/>";
+            data += "<img src=/UploadedData/pps/" + P.PrductImage + "  style='width: 40%; height:100px' class='img-'/>";
             data += "</td>";
 
             data += "</tr>";
@@ -191,6 +191,13 @@ namespace MVCJqueryFunction.Controllers
 
             return data;
 
+
+
+
+        }
+        public IActionResult show()
+        {
+            return View();
         }
 
     }
